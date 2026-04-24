@@ -15,6 +15,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\VnPayController;
+use App\Http\Controllers\ReviewController;
 
 Route::post('/vnpay_create_payment', [App\Http\Controllers\VnPayController::class, 'createPayment']);
 Route::get('/vnpay_return', [App\Http\Controllers\VnPayController::class, 'vnpayReturn']);
@@ -42,7 +43,15 @@ Route::get('/sizes/{id}',   [SizesController::class, 'show']);
 Route::get('/categories',         [CategoriesController::class, 'index']);
 Route::get('/categories/{id}',    [CategoriesController::class, 'show']);
 
+Route::get('/products/{productId}/reviews', [ReviewController::class, 'index']);
+
 Route::middleware('auth:api')->group(function () {
+    Route::post('/logout',  [UserController::class, 'logout']);
+    Route::post('/refresh', [UserController::class, 'refresh']);
+    Route::get('/me',       [UserController::class, 'me']);
+    Route::put('/me',       [UserController::class, 'updateMe']);
+    Route::put('/change-password', [UserController::class, 'changePassword']);
+
     Route::post('/colors',       [ColorsController::class, 'store']);
     Route::put('/colors/{id}',   [ColorsController::class, 'update']);
     Route::delete('/colors/{id}',[ColorsController::class, 'destroy']);
@@ -76,6 +85,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/orders-all', [OrderController::class, 'getAll']);
 
     Route::apiResource('order-details', OrderDetailController::class);
+
+    Route::get('/products/{productId}/my-review', [ReviewController::class, 'myReview']);
+    Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
+    Route::patch('/reviews/{id}', [ReviewController::class, 'update']);
+    Route::delete('/reviews/{id}', [ReviewController::class, 'destroy']);
 });
 
 Route::middleware('auth:api')->prefix('admin')->group(function () {
@@ -101,4 +115,7 @@ Route::middleware('auth:api')->prefix('admin')->group(function () {
     Route::get('/orders',        [OrderController::class, 'index']);
     Route::put('/orders/{id}',   [OrderController::class, 'update']);
     Route::delete('/orders/{id}',[OrderController::class, 'destroy']);
+
+    Route::get('/reviews', [ReviewController::class, 'adminIndex']);
+    Route::delete('/reviews/{id}', [ReviewController::class, 'adminDestroy']);
 });
