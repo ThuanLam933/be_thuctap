@@ -1,8 +1,8 @@
-FROM php:8.3-cli
+FROM php:8.3-fpm
 
 # Cài package cần thiết
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libpng-dev libonig-dev libxml2-dev \
+    git curl zip unzip libpng-dev libonig-dev libxml2-dev nginx supervisor \
     && docker-php-ext-install pdo pdo_mysql mbstring bcmath gd
 
 # Cài composer
@@ -24,6 +24,14 @@ RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
 
-EXPOSE 8000
+# Copy nginx config
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Supervisor config
+COPY docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 8080
+
+# Start nginx, php-fpm, migrate, then keep container running
+CMD php artisan migrate --force && \
+    /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
