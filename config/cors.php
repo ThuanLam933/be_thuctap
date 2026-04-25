@@ -6,7 +6,7 @@ return [
     
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'], // hoặc cụ thể: ['http://localhost:3000']
+    'allowed_origins' => ['https://fe-thuctap.vercel.app'], // hoặc cụ thể: ['http://localhost:3000']
 
     'allowed_origins_patterns' => [],
 
