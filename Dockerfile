@@ -10,6 +10,9 @@ WORKDIR /var/www
 
 COPY . .
 
+RUN ls -la /var/www
+RUN ls -la /var/www/public
+
 RUN composer install --no-dev --optimize-autoloader
 
 RUN chmod -R 775 storage bootstrap/cache
