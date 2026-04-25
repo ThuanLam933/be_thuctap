@@ -24,11 +24,12 @@ RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
 
-# Copy nginx config
-COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Supervisor config
-COPY docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Tạo file cấu hình nginx
+RUN echo "server {\n\    listen 8080;\n\    server_name _;\n\    root /var/www/public;\n\    index index.php index.html;\n\n\    location / {\n\        try_files $uri $uri/ /index.php?$query_string;\n\    }\n\n\    location ~ \\.php$ {\n\        fastcgi_pass   127.0.0.1:9000;\n\        fastcgi_index  index.php;\n\        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;\n\        include        fastcgi_params;\n\    }\n\n\    location ~ /\\.ht {\n\        deny all;\n\    }\n}" > /etc/nginx/conf.d/default.conf
+
+# Tạo file cấu hình supervisor
+RUN echo "[supervisord]\nnodaemon=true\n\n[program:php-fpm]\ncommand=php-fpm\nnumprocs=1\nautostart=true\nautorestart=true\nstdout_logfile=/dev/stdout\nstderr_logfile=/dev/stderr\n\n[program:nginx]\ncommand=nginx -g 'daemon off;'\nautostart=true\nautorestart=true\nstdout_logfile=/dev/stdout\nstderr_logfile=/dev/stderr\n" > /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 8080
 
