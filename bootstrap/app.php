@@ -15,7 +15,4 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create()
-        ->with([
-            Illuminate\View\ViewServiceProvider::class,
-        ]);
+    })->create();
