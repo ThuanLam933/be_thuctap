@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
-COPY . .
+
+# ✅ COPY ĐÚNG FOLDER
+COPY ./THUCTAP/backendtt .
 
 RUN composer install --no-dev --optimize-autoloader
 
