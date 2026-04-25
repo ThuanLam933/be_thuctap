@@ -6,12 +6,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    // Cho phép cả frontend production và local dev
-    'allowed_origins' => [
-        'https://fe-thuctap.vercel.app',
-        'http://localhost:3000',
-        'http://127.0.0.1:3000',
-    ],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
