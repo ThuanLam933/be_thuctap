@@ -21,9 +21,7 @@ RUN echo "[supervisord]\nnodaemon=true\n\n[program:php-fpm]\ncommand=php-fpm\nau
 
 EXPOSE 80
 
-CMD php artisan key:generate --force && \
-    php artisan migrate --force && \
-    php artisan config:clear && \
+CMD php artisan config:clear && \
     php artisan cache:clear && \
     php artisan route:clear && \
     /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
