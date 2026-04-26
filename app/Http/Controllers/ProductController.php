@@ -112,10 +112,10 @@ class ProductController extends Controller
                 'status'        => 'required|boolean',
                 'categories_id' => 'required|exists:categories,id',
                 // file rules
-                'image'         => 'sometimes|file|image|max:5120',
+                'image'         => 'sometimes|file|image|max:20480',
                 'images'        => 'sometimes|array',
-                'images.*'      => 'file|image|max:5120',
-                'image_url'     => 'sometimes|nullable|string|max:2048',
+                'images.*'      => 'file|image|max:20480',
+                'image_url'     => 'sometimes|nullable|string|max:20480',
             ]);
 
 
@@ -181,7 +181,7 @@ class ProductController extends Controller
                     'color_id' => 'nullable|exists:colors,id',
                     'size_id'  => 'nullable|exists:sizes,id',
                     'quantity' => 'nullable|integer',
-                    'image_url' => 'sometimes|nullable|string|max:2048',
+                    'image_url' => 'sometimes|nullable|string|max:20480',
                 ]);
 
                 if ($v->fails()) {
@@ -258,7 +258,7 @@ class ProductController extends Controller
             'image'         => 'sometimes|file|image|max:102400',
             'images'        => 'sometimes|array',
             'images.*'      => 'file|image|max:102400',
-            'image_url'     => 'sometimes|nullable|string|max:2048',
+            'image_url'     => 'sometimes|nullable|string|max:20480',
             // details is intentionally loose; we'll validate each item later
             'details'       => 'sometimes',
             'deleted_detail_ids' => 'sometimes|array',
@@ -336,7 +336,7 @@ class ProductController extends Controller
                     'color_id' => 'nullable|exists:colors,id',
                     'size_id'  => 'nullable|exists:sizes,id',
                     'quantity' => 'nullable|integer',
-                    'image_url' => 'sometimes|nullable|string|max:2048',
+                    'image_url' => 'sometimes|nullable|string|max:20480',
                 ]);
 
                 if ($v->fails()) {
