@@ -16,6 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\VnPayController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\DiscountController;
 
 Route::post('/vnpay_create_payment', [App\Http\Controllers\VnPayController::class, 'createPayment']);
 Route::get('/vnpay_return', [App\Http\Controllers\VnPayController::class, 'vnpayReturn']);
@@ -44,6 +45,8 @@ Route::get('/categories',         [CategoriesController::class, 'index']);
 Route::get('/categories/{id}',    [CategoriesController::class, 'show']);
 
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'index']);
+
+Route::post('/discounts/apply', [DiscountController::class, 'apply']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout',  [UserController::class, 'logout']);
@@ -118,4 +121,10 @@ Route::middleware('auth:api')->prefix('admin')->group(function () {
 
     Route::get('/reviews', [ReviewController::class, 'adminIndex']);
     Route::delete('/reviews/{id}', [ReviewController::class, 'adminDestroy']);
+
+    Route::get('/discounts',        [DiscountController::class, 'index']);
+    Route::post('/discounts',       [DiscountController::class, 'store']);
+    Route::get('/discounts/{id}',   [DiscountController::class, 'show']);
+    Route::put('/discounts/{id}',   [DiscountController::class, 'update']);
+    Route::delete('/discounts/{id}',[DiscountController::class, 'destroy']);
 });
