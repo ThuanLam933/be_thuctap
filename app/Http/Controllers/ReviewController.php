@@ -70,7 +70,7 @@ class ReviewController extends Controller
                 if($value === null || trim($value) === '')return;
                 $words = preg_split('/\s+/u', trim($value),-1 ,PREG_SPLIT_NO_EMPTY);
                 if(count($words)<5){
-                    $fail('sai');
+                    $fail('Bình luận phải có ít nhất 5 từ.');
                 }
             },
              ],
