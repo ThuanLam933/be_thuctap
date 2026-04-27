@@ -84,7 +84,7 @@ class VnPayController extends Controller
         }
 
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
-        $frontendUrl = env('URL_FRONTEND', 'https://api.blogcuavinh.id.vn/vnpay_return');
+        $frontendUrl = env('URL_FRONTEND',"http://localhost:3000/vnpay_return");
         if ($secureHash === $vnp_SecureHash) {
             if ($request->vnp_ResponseCode == '00') {
 
