@@ -47,8 +47,10 @@ Route::get('/categories/{id}',    [CategoriesController::class, 'show']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'index']);
 
 Route::post('/discounts/apply', [DiscountController::class, 'apply']);
-
+Route::get('/image-products',         [ImageProductController::class, 'index']);
+Route::get('/image-products/{id}',    [ImageProductController::class, 'show']);
 Route::middleware('auth:api')->group(function () {
+    
     Route::post('/logout',  [UserController::class, 'logout']);
     Route::post('/refresh', [UserController::class, 'refresh']);
     Route::get('/me',       [UserController::class, 'me']);
@@ -73,8 +75,7 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/product-details/{id}',    [ProductDetailController::class, 'update']);
     Route::delete('/product-details/{id}',   [ProductDetailController::class, 'destroy']);
 
-    Route::get('/image-products',         [ImageProductController::class, 'index']);
-    Route::get('/image-products/{id}',    [ImageProductController::class, 'show']);
+    
     Route::match(['put','patch','post'], '/image-products/{id}', [ImageProductController::class, 'update']);
     Route::delete('/image-products/{id}', [ImageProductController::class, 'destroy']);
     Route::post('/image-products',        [ImageProductController::class, 'store']);

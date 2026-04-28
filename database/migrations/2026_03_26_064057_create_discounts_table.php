@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('usage_limit')->nullable();
             $table->integer('usage_count')->default(0);
             $table->boolean('is_active')->default(true);
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
+            $table->date('start_at')->nullable();
+            $table->date('end_at')->nullable();
             $table->timestamps();
         });
     }
