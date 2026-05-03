@@ -49,6 +49,7 @@ Route::get('/products/{productId}/reviews', [ReviewController::class, 'index']);
 Route::post('/discounts/apply', [DiscountController::class, 'apply']);
 Route::get('/image-products',         [ImageProductController::class, 'index']);
 Route::get('/image-products/{id}',    [ImageProductController::class, 'show']);
+
 Route::middleware('auth:api')->group(function () {
     
     Route::post('/logout',  [UserController::class, 'logout']);
@@ -97,6 +98,8 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::middleware('auth:api')->prefix('admin')->group(function () {
+    Route::get('/users',  [UserController::class, 'getAll']);
+    Route::post('/users', [UserController::class, 'createByAdmin']);
     
     Route::get('/products',        [ProductController::class, 'products']);
     Route::post('/products',       [ProductController::class, 'addProduct']);
